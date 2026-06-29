@@ -1,80 +1,38 @@
-# Academic Project Page Template
+# Arena-T2I Hard — Project Page
 
-> **Update (September 2025)**: This template has been modernized with better design, SEO, and mobile support. For the original version, see the [original-version branch](https://github.com/eliahuhorwitz/Academic-project-page-template/tree/original-version).
+Static project page for **Arena-T2I Hard: Benchmarking and Improving Faithfulness with a Dependency-Aware Checklist** (NeurIPS 2026, under double-blind review).
 
-A clean, responsive template for academic project pages.
+## What it covers
 
+- **Arena-T2I Hard** — a 310-prompt stress benchmark of real arena user requests (~430 words, ~30 yes/no constraints per prompt) that stays discriminative where DPG-Bench and DSG saturate.
+- **Dependency-aware checklist** — prompts are decomposed into a DAG of yes/no questions; failing a parent zeroes its descendants.
+- **Reward–task mismatch & GDPO** — combining a checklist (faithfulness) reward with a Bradley-Terry (aesthetics) reward via group-decoupled normalization improves both axes on SD3.5-Medium and FLUX.1-dev.
+- Leaderboard of 11 frontier closed-source systems and the main pairwise (MMRB2) results.
 
-Example project pages built using this template are:
-- https://horwitz.ai/probex
-- https://vision.huji.ac.il/probegen
-- https://horwitz.ai/mother
-- https://horwitz.ai/spectral_detuning
-- https://vision.huji.ac.il/ladeda
-- https://vision.huji.ac.il/dsire
-- https://horwitz.ai/podd
-- https://dreamix-video-editing.github.io
-- https://horwitz.ai/conffusion
-- https://horwitz.ai/3d_ads/
-- https://vision.huji.ac.il/ssrl_ad
-- https://vision.huji.ac.il/deepsim
+## Structure
 
+- `index.html` — the entire page (content + layout).
+- `static/css/index.css` — Bulma theme plus custom styles for the leaderboard, cards, and DAG example.
+- `static/js/index.js` — copy-BibTeX, scroll-to-top, carousel/slider init.
+- `static/images/` — figures sourced from the paper (`benchmark_comparison.png`, `training_curves_combined.png`, `matrix_sd3.png`, `matrix_flux.png`, `judge_eval.png`).
 
+## Local preview
 
-## Start using the template
-To start using the template click on `Use this Template`.
+```bash
+python3 -m http.server 8000
+# open http://localhost:8000
+```
 
-The template uses html for controlling the content and css for controlling the style. 
-To edit the websites contents edit the `index.html` file. It contains different HTML "building blocks", use whichever ones you need and comment out the rest.  
+Deploys as-is on GitHub Pages (`.nojekyll` is included).
 
-**IMPORTANT!** Make sure to replace the `favicon.ico` under `static/images/` with one of your own, otherwise your favicon is going to be a dreambooth image of me.
+## Before going public
 
-## What's New
+Authors and affiliations are taken from the de-anonymized arXiv build. The following are still placeholders in `index.html`:
 
-- Modern, clean design with better mobile support
-- Improved SEO with proper meta tags and structured data
-- Performance improvements (lazy loading, optimized assets)
-- More Works dropdown
-- Copy button for BibTeX citations
-- Better accessibility
-
-## Components
-
-- Teaser video
-- Image carousel
-- YouTube video embedding
-- Video carousel
-- PDF poster viewer
-- BibTeX citation
-
-## Customization
-
-The HTML file has TODO comments showing what to replace:
-
-- Paper title, authors, institution, conference
-- Links (arXiv, GitHub, etc.)
-- Abstract and descriptions  
-- Videos, images, and PDFs
-- Related works in the dropdown
-- Meta tags for SEO and social sharing
-
-### Meta Tags
-The template includes meta tags for better search engine visibility and social media sharing. These appear in the `<head>` section and help with:
-- Google Scholar indexing
-- Social media previews (Twitter, Facebook, LinkedIn)
-- Search engine optimization
-
-Create a 1200x630px social preview image at `static/images/social_preview.png`.
-
-## Tips
-
-- Compress images with [TinyPNG](https://tinypng.com)
-- Use YouTube for large videos (>10MB)  
-- Replace the favicon in `static/images/`
-- Works with GitHub Pages
+- The **Paper / arXiv / Code / Benchmark** buttons (`href="#"`).
+- `og:url` meta tag (`https://YOUR_DOMAIN.com/arena-t2i-hard`).
+- Optional per-author homepage links (names are currently plain text).
 
 ## Acknowledgments
-Parts of this project page were adopted from the [Nerfies](https://nerfies.github.io/) page.
 
-## Website License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+Built on the [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template), adopted from [Nerfies](https://nerfies.github.io). Licensed under CC BY-SA 4.0.
