@@ -261,14 +261,6 @@
           </tbody>
         </table>
       </div>
-      <p class="cap">
-        Faithfulness yes-ratio of 11 leading closed-source T2I systems, all scored by gemini-3-flash, sorted by
-        Arena-T2I Hard. <strong>DPG-Bench (0.89&ndash;0.97) and DSG (0.84&ndash;0.95) are saturated</strong>, while
-        Arena-T2I Hard still separates the top models. Rankings diverge sharply from the public arena leaderboard
-        (e.g. recraft-v4 climbs #29&rarr;4th; hunyuan-image-3.0 drops #15&rarr;10th)&mdash;overall human preference is a
-        weak proxy for fine-grained prompt faithfulness. Re-decomposing all prompts with a second decomposer (GPT-5.4)
-        leaves rankings essentially unchanged (Pearson 0.991, Spearman 0.982).
-      </p>
     </div>
   </section>
 
@@ -295,11 +287,6 @@
         <div class="dag-q skip dag-child">q4 &nbsp;Is the cat sitting on the chair? <span class="dep">(depends_on: q0, q2)</span> &nbsp;&rarr; auto-NO</div>
         <div class="dag-q pass">q5 &nbsp;Is there a garden? <span class="dep">(root)</span> &nbsp;&rarr; YES</div>
       </div>
-      <p class="cap">
-        Illustrative decomposition. Because the chair is absent (q2&nbsp;=&nbsp;NO), its attribute (q3) and the relation
-        that requires it (q4) are zeroed without querying the judge. The faithfulness score is the yes-ratio over the
-        faithfulness questions.
-      </p>
     </div>
   </section>
 
@@ -310,12 +297,10 @@
       <h2 class="title is-3 has-text-centered">A Benchmark Example</h2>
       <div class="content has-text-centered" style="max-width:820px;margin:0 auto 1.5rem;">
         <p>
-          One real Arena-T2I Hard prompt&mdash;a long, structured scene description&mdash;scored against the image from
-          the <strong>top-ranked system, gemini-3-pro-image-preview</strong>. Even the strongest model satisfies only
-          23 of 27 constraints (0.85): it nails the pink corseted gown, the tiara, the throne, the makeup and the
-          spotlight, but the hairbrush and hand mirror come out the wrong color (q17, q19 = No). The shoes are hidden
-          under the floor-length gown, so &ldquo;high-heeled shoes?&rdquo; is indeterminate (q10 = N/A)&mdash;which
-          auto-skips its dependent &ldquo;are the shoes pink?&rdquo; (q11).
+          One real Arena-T2I Hard prompt scored against the image from the
+          <strong>top-ranked system, gemini-3-pro-image-preview</strong>&mdash;which still satisfies only 23 of 27
+          constraints (0.85). The hairbrush and hand mirror aren&rsquo;t pink (q17, q19 = No), and the shoes are hidden
+          by the gown, so q10 is indeterminate (N/A)&mdash;auto-skipping its dependent q11.
         </p>
       </div>
 
