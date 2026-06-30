@@ -166,12 +166,23 @@
               </div>
             </div>
 
-            <div class="tldr">
-              <strong>TL;DR &mdash;</strong> Existing T2I faithfulness benchmarks are saturated. We release
-              <strong>Arena-T2I Hard</strong>: a 310-prompt stress test from real arena user votes, scored by a
-              <strong>dependency-aware checklist</strong>. Meanwhile, we find that existing reward models often fail to
-              improve faithfulness during RL, whereas our faithfulness checklist serves as an effective reward for
-              doing so.
+            <div class="hero-abstract content has-text-justified">
+              <p class="eyebrow has-text-centered">Abstract</p>
+              <p>
+                Existing T2I faithfulness benchmarks rely on atomic instructions that top systems already satisfy
+                near-perfectly, so a single binary VLM-judge score no longer reveals <em>which</em> constraints a model
+                fails. We introduce <strong>Arena-T2I Hard</strong>, a 310-prompt stress benchmark drawn from real arena
+                T2I logs, with ~30 decomposed yes/no constraints per prompt across six categories. The strongest system
+                we evaluate reaches only 0.855, with a 33&nbsp;pp spread across 11 systems&mdash;and high public-arena
+                rankings fail to predict faithfulness, confirming that holistic preference scores reward aesthetics over
+                fine-grained prompt adherence.
+              </p>
+              <p>
+                The <strong>dependency-aware checklist</strong> that scores the benchmark also serves as a post-training
+                reward. Combined with a Bradley-Terry aesthetic reward via <strong>group-decoupled normalization
+                (GDPO)</strong>, it improves faithfulness and aesthetics on SD3.5-Medium and FLUX.1-dev, beating every
+                single-reward, naive weighted-sum, and 4-reward-ensemble baseline.
+              </p>
             </div>
           </div>
         </div>
@@ -180,50 +191,22 @@
   </section>
 
 
-  <!-- Teaser figure -->
-  <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <div class="hero-body">
-        <div class="figure-block">
-          <img src="static/images/benchmark_comparison.png"
-               alt="Existing faithfulness benchmarks vs. Arena-T2I Hard"
-               loading="lazy"/>
-        </div>
-        <h2 class="subtitle has-text-centered" style="margin-top:1.25rem;">
-          Existing faithfulness benchmarks rely on synthetic templates, LLM rewriting, or short curated captions.
-          Even the longest-form predecessor (DPG-Bench) averages only ~70 words per prompt.
-          <strong>Arena-T2I Hard</strong> draws from real T2I-arena user votes and selects for compositional
-          difficulty: ~430 words and ~30 decomposed yes/no questions per prompt.
-        </h2>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Abstract -->
+  <!-- Drawbacks of current benchmarks (teaser figure) -->
   <section class="section hero is-light">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              Existing T2I faithfulness benchmarks rely on simple atomic instructions on which top systems already
-              score near-perfectly, so a single binary VLM-judge score no longer reveals <em>which</em> constraints a
-              model fails. We introduce <strong>Arena-T2I Hard</strong>, a 310-prompt stress benchmark drawn from real
-              arena T2I logs, with ~30 decomposed yes/no constraints per prompt across six categories. The strongest
-              system we evaluate reaches only 0.855, with a 33&nbsp;pp spread across 11 systems&mdash;and high
-              public-arena rankings fail to predict faithfulness, confirming that holistic preference scores prioritize
-              aesthetics over fine-grained prompt adherence.
-            </p>
-            <p>
-              The same <strong>dependency-aware checklist</strong> that scores the benchmark also works as a
-              post-training reward: combined with a Bradley-Terry aesthetic reward via <strong>group-decoupled
-              normalization (GDPO)</strong>, it improves both faithfulness and aesthetics on SD3.5-Medium and FLUX.1-dev,
-              beating every single-reward, naive weighted-sum, and 4-reward ensemble baseline.
-            </p>
-          </div>
-        </div>
+      <h2 class="title is-3 has-text-centered">Drawbacks of Current Benchmarks</h2>
+      <div class="content has-text-justified" style="max-width:860px;margin:0 auto 1.25rem;">
+        <p>
+          Existing faithfulness benchmarks rely on synthetic templates, LLM rewriting, or short curated captions
+          &mdash; even the longest-form predecessor (DPG-Bench) averages only ~70 words per prompt, and top systems
+          already score over 95% on them. <strong>Arena-T2I Hard</strong> instead draws from real T2I-arena user votes
+          and selects for compositional difficulty: ~430 words and ~30 decomposed yes/no questions per prompt.
+        </p>
+      </div>
+      <div class="figure-block">
+        <img src="static/images/benchmark_comparison.png"
+             alt="Existing faithfulness benchmarks vs. Arena-T2I Hard"
+             loading="lazy"/>
       </div>
     </div>
   </section>
@@ -236,11 +219,8 @@
       <h2 class="title is-2 has-text-centered">Arena-T2I Hard</h2>
       <div class="content has-text-justified" style="max-width:820px;margin:0 auto;">
         <p>
-          All prompts are sampled from a public text-to-image arena leaderboard (Jan&ndash;Mar 2026), so the
-          distribution reflects what real users actually ask of T2I systems. After NSFW/PII/invalid-prompt filtering
-          and manual review, we select <strong>310 deliberately compositional prompts</strong>&mdash;long, multi-entity,
-          with attributes, spatial relations, counts, and stylistic constraints stacked together&mdash;balanced across
-          six visual-style categories.
+          310 prompts sampled from a public T2I arena leaderboard (Jan&ndash;Mar 2026)&mdash;real user requests, filtered
+          and hand-selected for compositional difficulty and balanced across six visual-style categories.
         </p>
       </div>
 
@@ -324,20 +304,100 @@
   </section>
 
 
-  <!-- Bonus: post-training recipe (condensed) -->
+  <!-- A real benchmark example -->
   <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">A Benchmark Example</h2>
+      <div class="content has-text-centered" style="max-width:820px;margin:0 auto 1.5rem;">
+        <p>
+          One real Arena-T2I Hard prompt&mdash;a long, structured scene description&mdash;scored against the image from
+          the <strong>top-ranked system, gemini-3-pro-image-preview</strong>. Even the strongest model satisfies only
+          23 of 27 constraints (0.85): it nails the pink corseted gown, the tiara, the throne, the makeup and the
+          spotlight, but the hairbrush and hand mirror come out the wrong color (q17, q19 = No). The shoes are hidden
+          under the floor-length gown, so &ldquo;high-heeled shoes?&rdquo; is indeterminate (q10 = N/A)&mdash;which
+          auto-skips its dependent &ldquo;are the shoes pink?&rdquo; (q11).
+        </p>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-img">
+          <img src="static/images/example_throne.jpg"
+               alt="gemini-3-pro generation: a person in a pink corseted ball gown and tiara seated on a pink throne, surrounded by pink props under a dramatic spotlight" loading="lazy"/>
+          <div class="example-meta">Generated by gemini-3-pro-image-preview &middot; Arena-T2I Hard prompt #45</div>
+          <div class="example-prompt">
+            This image depicts a person dressed in a highly elaborate and glamorous costume, likely for a performance or
+            themed event. <b>Costume:</b> a full-length, pink, corseted gown with ruffles and layers&mdash;a fitted,
+            corset-like bodice accentuating the waist and a voluminous, ruffled skirt. <b>Accessories:</b> a tiara or
+            crown, high-heeled shoes matching the pink theme, and multiple pieces of jewelry including bracelets and
+            rings. <b>Makeup &amp; hair:</b> elaborate, dramatic makeup with bold eyeliner and heavy eyeshadow, possibly
+            glitter; hair in a voluminous, wavy updo. <b>Setting:</b> seated on a large, pink throne-like chair,
+            surrounded by pink props&mdash;a hairbrush, a hand mirror and a fan&mdash;against a dark, theatrical
+            background with a floral arrangement and a mirror. <b>Lighting:</b> dramatic, with a spotlight effect,
+            suggesting a drag show or themed event.
+          </div>
+        </div>
+
+        <div>
+          <div class="example-score">
+            <span class="big">0.85</span>
+            <span class="sub">faithfulness = 23 Yes / 27 questions &middot; 2 No &middot; 1 N/A &middot; 1 Skip</span>
+          </div>
+          <ul class="qa-list">
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q0. Is there a person in the image?</span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q1. Is there a large, throne-like chair in the image?</span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q2. Is the person seated on the throne-like chair? <span class="qa-dep">&middot; needs q0, q1</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q3. Is the person wearing a gown? <span class="qa-dep">&middot; needs q0</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q4. Is the gown pink? <span class="qa-dep">&middot; needs q3</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q5. Is the gown full-length? <span class="qa-dep">&middot; needs q3</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q6. Does the gown have a fitted, corseted bodice? <span class="qa-dep">&middot; needs q3</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q7. Does the gown have a voluminous skirt? <span class="qa-dep">&middot; needs q3</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q8. Is the gown adorned with ruffles and layers? <span class="qa-dep">&middot; needs q3</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q9. Is the person wearing a tiara or crown? <span class="qa-dep">&middot; needs q0</span></span></li>
+        <li class="qa-item na qa-child"><span class="qa-badge">N/A</span><span class="qa-text">q10. Is the person wearing high-heeled shoes? <span class="qa-dep">&middot; needs q0</span></span></li>
+        <li class="qa-item skip qa-child"><span class="qa-badge">Skip</span><span class="qa-text">q11. Are the high-heeled shoes pink? <span class="qa-dep">&middot; needs q10</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q12. Is the person wearing jewelry, such as bracelets and rings? <span class="qa-dep">&middot; needs q0</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q13. Does the person have elaborate makeup, including bold eyeliner and heavy eyeshadow? <span class="qa-dep">&middot; needs q0</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q14. Is the person's hair styled in a voluminous, wavy updo? <span class="qa-dep">&middot; needs q0</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q15. Is the throne-like chair pink? <span class="qa-dep">&middot; needs q1</span></span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q16. Is there a hairbrush in the image?</span></li>
+        <li class="qa-item fail qa-child"><span class="qa-badge">No</span><span class="qa-text">q17. Is the hairbrush pink? <span class="qa-dep">&middot; needs q16</span></span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q18. Is there a hand mirror in the image?</span></li>
+        <li class="qa-item fail qa-child"><span class="qa-badge">No</span><span class="qa-text">q19. Is the hand mirror pink? <span class="qa-dep">&middot; needs q18</span></span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q20. Is there a fan in the image?</span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q21. Is the fan pink? <span class="qa-dep">&middot; needs q20</span></span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q22. Are the hairbrush, hand mirror, and fan surrounding the chair? <span class="qa-dep">&middot; needs q1, q16, q18, q20</span></span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q23. Is the background dark?</span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q24. Is there a floral arrangement in the background?</span></li>
+        <li class="qa-item pass"><span class="qa-badge">Yes</span><span class="qa-text">q25. Is there a mirror in the background?</span></li>
+        <li class="qa-item pass qa-child"><span class="qa-badge">Yes</span><span class="qa-text">q26. Is there dramatic lighting creating a spotlight effect on the person? <span class="qa-dep">&middot; needs q0</span></span></li>
+          </ul>
+          <p class="qa-legend">
+            <b style="color:#15803d;">Yes</b> constraint satisfied &middot;
+            <b style="color:#b91c1c;">No</b> violated &middot;
+            <b style="color:#b45309;">N/A</b> judge couldn&rsquo;t determine (counted as not satisfied) &middot;
+            <b style="color:#6b7280;">Skip</b> auto-failed because a parent question failed (no VLM call).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Bonus: post-training recipe (condensed) -->
+  <section class="section">
     <div class="container is-max-desktop">
       <p class="eyebrow has-text-centered">Bonus</p>
       <h2 class="title is-3 has-text-centered">The Checklist as a Post-Training Reward</h2>
       <div class="content has-text-justified" style="max-width:820px;margin:0 auto;">
         <p>
-          Single rewards don't transfer across axes: BT preference rewards lift aesthetics but push faithfulness down,
-          and vice-versa. We combine the checklist (faithfulness) with a BT reward (aesthetics) under
-          <strong>group-decoupled normalization (GDPO)</strong>, which standardizes each reward within its rollout group
-          before combining. On FLUX.1-dev this lifts <strong>both</strong> signals (+10.5% faithfulness, +3.5%
-          PickScore), and under the MMRB2 pairwise protocol our <strong>Faith&nbsp;+&nbsp;Pick</strong> run is the
-          strongest row on both SD3.5-Medium and FLUX.1-dev&mdash;beating every single-reward, ensemble, and
-          iterative-SFT baseline (a 1,899-vote human study agrees, 64.1% overall).
+          Single rewards don't transfer across axes: Bradley-Terry preference rewards lift aesthetics but drag
+          faithfulness down, and vice-versa. We combine the checklist (faithfulness) with a BT reward (aesthetics) under
+          <strong>group-decoupled normalization (GDPO)</strong>&mdash;standardizing each reward within its rollout group
+          before combining, so neither axis dominates the gradient. On FLUX.1-dev this lifts both at once:
+          <strong>+10.5% faithfulness and +3.5% PickScore</strong>. Under a pairwise win-rate protocol (MMRB2), our
+          <strong>Faith&nbsp;+&nbsp;Pick</strong> run is the strongest row on both SD3.5-Medium and FLUX.1-dev, beating
+          every single-reward, naive weighted-sum, and 4-reward-ensemble baseline&mdash;and a 1,899-vote human study
+          agrees (64.1% preferred overall).
         </p>
       </div>
 
