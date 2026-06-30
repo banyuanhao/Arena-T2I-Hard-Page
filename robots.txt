@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://banyuanhao.github.io/Arena-T2I-Hard-Page/sitemap.xml

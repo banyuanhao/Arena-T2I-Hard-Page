@@ -20,22 +20,22 @@
   <meta name="citation_author" content="Hsieh, Cho-Jui">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
+  <link rel="canonical" href="https://banyuanhao.github.io/Arena-T2I-Hard-Page/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Arena-T2I Hard">
   <meta property="og:title" content="Arena-T2I Hard: Benchmarking and Improving Faithfulness with Dependency-Aware Checklist">
   <meta property="og:description" content="A 310-prompt stress benchmark from real arena votes for text-to-image faithfulness, plus a dependency-aware checklist reward combined with aesthetics via GDPO.">
-  <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/arena-t2i-hard">
-  <meta property="og:image" content="static/images/benchmark_comparison.png">
+  <meta property="og:url" content="https://banyuanhao.github.io/Arena-T2I-Hard-Page/">
+  <meta property="og:image" content="https://banyuanhao.github.io/Arena-T2I-Hard-Page/static/images/benchmark_comparison.png">
   <meta property="og:image:alt" content="Existing faithfulness benchmarks vs. Arena-T2I Hard">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Arena-T2I Hard: Benchmarking and Improving Faithfulness with Dependency-Aware Checklist">
   <meta name="twitter:description" content="A 310-prompt stress benchmark from real arena votes for text-to-image faithfulness, plus a dependency-aware checklist reward combined with aesthetics via GDPO.">
-  <meta name="twitter:image" content="static/images/benchmark_comparison.png">
+  <meta name="twitter:image" content="https://banyuanhao.github.io/Arena-T2I-Hard-Page/static/images/benchmark_comparison.png">
 
   <!-- Academic/Research Specific -->
   <meta name="citation_title" content="Arena-T2I Hard: Benchmarking and Improving Faithfulness with Dependency-Aware Checklist">
@@ -103,8 +103,35 @@
       {"@type": "Person", "name": "Cho-Jui Hsieh", "affiliation": {"@type": "Organization", "name": "Arena Intelligence Inc"}}
     ],
     "keywords": ["text-to-image", "faithfulness", "benchmark", "reward model", "GRPO", "GDPO", "RLHF", "diffusion models"],
+    "url": "https://banyuanhao.github.io/Arena-T2I-Hard-Page/",
+    "mainEntityOfPage": "https://banyuanhao.github.io/Arena-T2I-Hard-Page/",
+    "sameAs": [
+      "https://github.com/banyuanhao/Arena-T2I-Hard",
+      "https://huggingface.co/datasets/lmarena-ai/Arena-T2I-Hard"
+    ],
     "isAccessibleForFree": true,
     "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+
+  <!-- Dataset structured data (for Google Dataset Search) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Arena-T2I Hard",
+    "description": "A 310-prompt stress benchmark of real arena user requests for evaluating text-to-image faithfulness, with ~30 decomposed yes/no constraints per prompt across six categories, organized as a dependency-aware checklist (DAG).",
+    "url": "https://huggingface.co/datasets/lmarena-ai/Arena-T2I-Hard",
+    "sameAs": "https://github.com/banyuanhao/Arena-T2I-Hard",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": true,
+    "keywords": ["text-to-image", "faithfulness", "benchmark", "prompt adherence", "evaluation", "VLM judge"],
+    "creator": {"@type": "Organization", "name": "Arena Intelligence Inc"},
+    "distribution": {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://huggingface.co/datasets/lmarena-ai/Arena-T2I-Hard"
+    }
   }
   </script>
 </head>
